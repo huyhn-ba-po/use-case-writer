@@ -2,8 +2,6 @@
 
 Run this checklist BEFORE handing over a UC. Each item has: definition, how to check, pass/fail examples.
 
-> Compiled by **Phúc NT** · BA Zone · Digital School
-
 ## How to use
 
 1. After writing the UC, walk through items C1-C20
@@ -13,7 +11,7 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 ```
 | Item | Status | Note |
-| C1   | ✅     | UC Name "Enroll in Digital School course" follows the format |
+| C1   | ✅     | UC Name "Place an order" follows the format |
 | C2   | ⚠️     | UC could be split further — confirm with PO |
 | ...  | ...    | ... |
 ```
@@ -27,8 +25,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **How to check**: Parse the UC Name → identify the leading verb → verify it's an action verb.
 
-**Pass**: "Enroll in Digital School course", "Approve mentor session request", "Issue completion certificate"
-**Fail**: "Enrollment" (no verb), "Learner books session" (actor included), "Manage courses" (vague verb)
+**Pass**: "Place an order", "Approve a booking request", "Issue a refund receipt"
+**Fail**: "Order" (no verb), "Customer books room" (actor included), "Manage catalog" (vague verb)
 
 ---
 
@@ -40,12 +38,12 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - If the result spans multiple sessions → UC is too large
 
 **Pass**:
-- "Enroll in Digital School course" → postcondition: enrollment active, learner has course access
-- "Book mentor session" → postcondition: session request submitted, mentor notified
+- "Place an order" → postcondition: order confirmed, stock reserved
+- "Book a meeting room" → postcondition: booking request submitted, manager notified
 
 **Fail**:
 - "Verify OTP" (too small — just a sub-step of another UC) → should be an Includes
-- "Manage entire learner lifecycle" (too large — spans many sessions) → split into many UCs
+- "Manage the entire order lifecycle" (too large — spans many sessions) → split into many UCs
 
 ---
 
@@ -56,8 +54,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - Check the master UC list — is the ID unique?
 - Does the format match `UC-<module>-<seq>`?
 
-**Pass**: "UC-LEARN-01" (unique, correct format), "UC-MENTOR-03"
-**Fail**: "UC1" (no module), "UseCase_CourseEnroll" (name embedded)
+**Pass**: "UC-ORDER-01" (unique, correct format), "UC-ROOM-03"
+**Fail**: "UC1" (no module), "UseCase_PlaceOrder" (name embedded)
 
 ---
 
@@ -69,8 +67,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - Description → does it state the goal clearly?
 - If you see 2 primary actors → flag for splitting
 
-**Pass**: Primary: Learner. Goal: enroll in a Digital School course and gain immediate access to materials.
-**Fail**: Primary: Learner + HR Manager (2 actors). → Split: "Learner self-enrolls" and "HR Manager assigns course to employee" as 2 UCs.
+**Pass**: Primary: Customer. Goal: place an order and receive confirmation with stock reserved.
+**Fail**: Primary: Customer + Account Admin (2 actors). → Split: "Customer self-orders" and "Admin places order on behalf of a member" as 2 UCs.
 
 ---
 
@@ -79,8 +77,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **How to check**: Read the Normal Course → do the "System..." steps consistently refer to one system?
 
-**Pass**: All steps refer to "BA Zone Platform". LMS and Payment Gateway are secondary actors.
-**Fail**: Mixing BA Zone web platform + mobile app + third-party LMS API as if they were one system. → Split by system boundary or clarify primary system.
+**Pass**: All steps refer to "the store platform". Inventory Service and Payment Gateway are secondary actors.
+**Fail**: Mixing the store web platform + mobile app + third-party warehouse API as if they were one system. → Split by system boundary or clarify the primary system.
 
 ---
 
@@ -89,7 +87,7 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 ### C6. Actor is a specific role/class
 **How to check**: Is the actor a specific role/class rather than "User"?
 
-**Pass**: "Learner (Digital School Premium subscriber)", "Mentor (BA Zone certified, active account)"
+**Pass**: "Customer (registered account)", "Facility Manager (active manager account)"
 **Fail**: "User", "Person", "Actor 1"
 
 ---
@@ -98,17 +96,17 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 **How to check**: Read the Description → check that all 3 elements are present.
 
 **Pass**:
-"When a learner completes all lessons and passes the final assessment [WHY], the learner navigates to the Certificate section to request a completion certificate [WHAT]. The UC ends when a personalized certificate PDF is generated with a unique verification code and emailed to the learner [OUTCOME]."
+"When a customer wants a copy of a transaction record [WHY], the customer navigates to the order history and requests a receipt [WHAT]. The UC ends when a receipt PDF is generated with a unique reference code and emailed to the customer [OUTCOME]."
 
-**Fail**: "This UC is about issuing certificates." (missing WHY and OUTCOME)
+**Fail**: "This UC is about issuing receipts." (missing WHY and OUTCOME)
 
 ---
 
 ### C8. Frequency of Use is quantified
 **How to check**: Does the Frequency field contain a NUMBER?
 
-**Pass**: "~500 enrollments/day platform-wide; peak ~100/hour during promotional campaigns"
-**Fail**: "Frequent", "Often during course launches" (no volume)
+**Pass**: "~500 orders/day store-wide; peak ~100/hour during promotional campaigns"
+**Fail**: "Frequent", "Often during sales" (no volume)
 
 ⚠️ Acceptable: "TBD — awaiting analytics data from ops team" + logged in Notes as [TBD-N]
 
@@ -119,8 +117,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 ### C9. Preconditions are verifiable
 **How to check**: Can each precondition be verified by a query / boolean test?
 
-**Pass**: "Learner has completed 100% of course lessons (progress = 100%)" (DB query), "Payment Gateway is available" (health check)
-**Fail**: "Learner is motivated to learn" (motivation — not verifiable), "System is ready" (too vague)
+**Pass**: "Order status is 'Completed' (a receipt can only be issued for completed orders)" (DB query), "Payment Gateway is available" (health check)
+**Fail**: "Customer is motivated to buy" (motivation — not verifiable), "System is ready" (too vague)
 
 ---
 
@@ -132,14 +130,14 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **Pass**:
 ```
-1. Enrollment record created with status='Active'
-2. Learner granted access to all published lessons
+1. Order record created with status='Confirmed'
+2. Stock reserved for each ordered item
 3. Payment transaction saved with status='Completed'
-4. Welcome email + in-app notification sent within 60s
-5. Course enrollment count incremented by 1
+4. Confirmation email + in-app notification sent within 60s
+5. Cart is cleared
 ```
 
-**Fail**: Only "Enrollment succeeded" → missing all state detail.
+**Fail**: Only "Order succeeded" → missing all state detail.
 
 ---
 
@@ -148,7 +146,7 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - Precondition: MUST BE TRUE, system can check
 - Assumption: BELIEVED to be true, not verified
 
-**Common Digital School mistake**: Putting "Learner has basic computer literacy" in Precondition → WRONG, this is an Assumption. The system cannot check it.
+**Common mistake**: Putting "Customer has basic computer literacy" in Precondition → WRONG, this is an Assumption. The system cannot check it.
 
 ---
 
@@ -160,8 +158,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - Contain only one main action
 - Avoid "and" connecting two different-kind actions
 
-**Pass**: "3. Learner enters the session topic, preferred date, and time slot." (same kind — input fields)
-**Fail**: "3. Learner enters the topic and clicks Send and waits for confirmation." (3 actions in one step)
+**Pass**: "3. Customer enters the shipping address, preferred date, and delivery note." (same kind — input fields)
+**Fail**: "3. Customer enters the address and clicks Checkout and waits for confirmation." (3 actions in one step)
 
 ---
 
@@ -170,15 +168,15 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **Pass**:
 ```
-1. Learner clicks Enroll Now              ← Actor
+1. Customer clicks Checkout               ← Actor
 2. System displays the Order Summary      ← System
-3. Learner selects a payment method       ← Actor
-4. Learner clicks Proceed to Payment      ← Actor
+3. Customer selects a payment method      ← Actor
+4. Customer clicks Proceed to Payment     ← Actor
 5. System invokes the Payment Gateway     ← System
 ```
 (OK to have 2 consecutive Actor steps when both are input — still clear)
 
-**Fail**: Only "Learner does X, then Y, then Z" with no system response anywhere.
+**Fail**: Only "Customer does X, then Y, then Z" with no system response anywhere.
 
 ---
 
@@ -187,15 +185,15 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **Pass**:
 ```
-5. System validates the learner's remaining session quota.
-6. System creates the session request with status='Pending_Mentor_Review'.
+5. System validates the member's remaining booking credit.
+6. System creates the booking request with status='Pending_Manager_Review'.
 ```
 
 **Fail**:
 ```
-5. If the learner has a Premium subscription, system shows all mentors; if Free, system shows only free-tier mentors; if quota is 0, system blocks the action.
+5. If the member has a Premium plan, system shows all rooms; if Basic, system shows only shared desks; if credit is 0, system blocks the action.
 ```
-→ Split into: Normal Course (default Premium flow) + AC (Free tier) + Exception (quota exhausted).
+→ Split into: Normal Course (default Premium flow) + AC (Basic tier) + Exception (credit exhausted).
 
 ---
 
@@ -205,8 +203,8 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 - Does the final step achieve the postcondition?
 - Are there any "dangling" steps?
 
-**Pass**: Step 1 "Learner clicks Enroll Now" (trigger) → step 9 "System sends welcome notification" (postcondition achieved).
-**Fail**: Final step is "System saves enrollment" but postcondition says "Welcome notification is sent" → flow is incomplete.
+**Pass**: Step 1 "Customer clicks Checkout" (trigger) → step 9 "System sends confirmation notification" (postcondition achieved).
+**Fail**: Final step is "System saves the order" but postcondition says "Confirmation notification is sent" → flow is incomplete.
 
 ---
 
@@ -221,16 +219,16 @@ Run this checklist BEFORE handing over a UC. Each item has: definition, how to c
 
 **Pass**:
 ```
-UC-LEARN-01.AC.1: Enroll using enterprise voucher
-At step 5 of the Normal Course, if the learner selects Enterprise Voucher:
-5a. System displays a voucher code field.
-5b. Learner enters the code and clicks Apply.
-5c. System validates the voucher → continue from step 7 of the Normal Course.
+UC-ORDER-01.AC.1: Pay using a gift card
+At step 5 of the Normal Course, if the customer selects Gift Card:
+5a. System displays a gift card code field.
+5b. Customer enters the code and clicks Apply.
+5c. System validates the gift card → continue from step 7 of the Normal Course.
 ```
 
 **Fail**:
 ```
-AC1: If learner has a voucher, they can use it instead of paying.
+AC1: If the customer has a gift card, they can use it instead of paying.
 ```
 (Too vague, no step reference, no sub-steps, no rejoining instruction)
 
@@ -241,10 +239,10 @@ AC1: If learner has a voucher, they can use it instead of paying.
 
 **Pass**:
 ```
-UC-LEARN-01.EX.2: Course reaches full capacity mid-flow
-Trigger: At step 7, LMS returns CAPACITY_EXCEEDED.
-Response: System displays "This course just reached full capacity. Join the waitlist."
-Final state: Payment refunded within 1 business day. No enrollment created. Waitlist offer shown.
+UC-ORDER-01.EX.2: Item sells out mid-flow
+Trigger: At step 7, the Inventory Service returns OUT_OF_STOCK.
+Response: System displays "This item just sold out. Join the back-in-stock waitlist."
+Final state: Payment refunded within 1 business day. No order created. Waitlist offer shown.
 ```
 
 **Fail**:
@@ -256,19 +254,19 @@ EX1: If an error occurs, system shows an error message.
 ---
 
 ### C18. Common failure modes are covered
-**How to check**: Does the UC cover at least the common failure types relevant to Digital School?
+**How to check**: Does the UC cover at least the common failure types relevant to the feature?
 
-| Failure type | Required for Digital School UC? |
+| Failure type | Required? |
 |---|---|
 | Validation error (invalid input) | ✅ |
-| Business rule violation (quota exceeded, course at capacity) | ✅ |
-| External service failure (payment gateway, LMS, calendar timeout) | ✅ |
+| Business rule violation (credit exceeded, item out of stock) | ✅ |
+| External service failure (payment gateway, inventory, calendar timeout) | ✅ |
 | Authentication/Authorization failure | ✅ if UC has auth |
 | Network/connectivity issue | ✅ for mobile flows |
-| Concurrency conflict (two learners grabbing last slot) | ✅ for enrollment/booking UCs |
-| Session timeout (mentor idle on detail view) | ✅ for UCs with long review flows |
+| Concurrency conflict (two actors grabbing the last slot/unit) | ✅ for order/booking UCs |
+| Session timeout (manager idle on detail view) | ✅ for UCs with long review flows |
 
-**Tip**: If the UC has only 1-2 Exceptions → suspicious. Enrollment and booking UCs typically need 3-5.
+**Tip**: If the UC has only 1-2 Exceptions → suspicious. Order and booking UCs typically need 3-5.
 
 ---
 
@@ -286,13 +284,13 @@ EX1: If an error occurs, system shows an error message.
 **How to check**: Is each item in Special Requirements a non-functional requirement?
 
 **Pass** (non-functional):
-- "Course catalog loads ≤ 2s under 5,000 concurrent users"
+- "Product catalog loads ≤ 2s under 5,000 concurrent users"
 - "Audit log retained for 3 years"
-- "Comply with Vietnamese VAT invoicing regulations"
+- "Comply with applicable tax-invoicing regulations"
 
 **Fail** (functional — belongs in Normal Course / Business Rule):
-- "Validate that the voucher code is 16 characters" → validation logic, belongs in a Normal Course step or BR
-- "Learner can only enroll in 10 courses per month" → business rule, not a Special Requirement
+- "Validate that the gift card code is 16 characters" → validation logic, belongs in a Normal Course step or BR
+- "Customer can only place 10 orders per day" → business rule, not a Special Requirement
 
 ---
 
@@ -301,15 +299,15 @@ EX1: If an error occurs, system shows an error message.
 After checking all 20 items, output the report in this format:
 
 ```markdown
-## Validation Result for UC-LEARN-01
+## Validation Result for UC-ORDER-01
 
 | # | Item | Status | Note |
 |---|------|--------|------|
-| C1 | UC Name format | ✅ | "Enroll in Digital School course" — active verb + object |
+| C1 | UC Name format | ✅ | "Place an order" — active verb + object |
 | C2 | User-goal level | ✅ | Passes coffee-break test |
 | C3 | UC ID unique | ✅ | Follows convention |
-| C4 | 1 primary actor | ✅ | Learner |
-| C5 | System boundary | ✅ | BA Zone Platform |
+| C4 | 1 primary actor | ✅ | Customer |
+| C5 | System boundary | ✅ | Store platform |
 | C6 | Specific actor | ✅ | |
 | C7 | Description WHY+WHAT+OUTCOME | ✅ | |
 | C8 | Frequency quantified | ⚠️ | TBD — awaiting analytics from ops team |
@@ -322,14 +320,10 @@ After checking all 20 items, output the report in this format:
 | C15 | Flow complete | ✅ | |
 | C16 | AC has "at step N" | ✅ | 2 ACs, all properly anchored |
 | C17 | Exception has 3 parts | ✅ | 4 exceptions, all complete |
-| C18 | Common failure modes covered | ✅ | Payment fail, capacity, LMS unavailable — all covered |
+| C18 | Common failure modes covered | ✅ | Payment fail, out of stock, inventory unavailable — all covered |
 | C19 | Includes valid | ✅ | UC-PAY-01, UC-NOTI-01 |
 | C20 | Special Req non-functional | ✅ | |
 
 **Summary**: 19/20 ✅ + 1 ⚠️. UC is ready for stakeholder review.
 **Follow-up**: C8 — Frequency of Use awaiting analytics data from the ops team [TBD-3].
 ```
-
----
-*Compiled by **Phúc NT** · BA Zone · Digital School*  
-*Please credit the source when sharing or adapting this checklist.*

@@ -1,15 +1,13 @@
-# Use Case Writer · BA Zone
+# Use Case Writer
 
 > A Claude AI skill that helps IT Business Analysts **scope, analyze, and document Use Cases** in English Markdown, following the industry-standard 13-field template (Karl Wiegers / IIBA style) with best practices from Alistair Cockburn's *Writing Effective Use Cases*.
->
-> Developed by **Phúc NT** for the **BA Zone** — Vietnam's Business Analyst & Product Owner community.
 
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-orange)](https://claude.ai)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
-[![Author](https://img.shields.io/badge/Author-Ph%C3%BAc%20NT-purple)](#)
-[![BA Zone](https://img.shields.io/badge/BA-Zone-orange)](https://bazone.vn)
 [![Output](https://img.shields.io/badge/Output-English%20Markdown-green)](#)
 [![Template](https://img.shields.io/badge/Template-Karl%20Wiegers%20%2F%20IIBA-blue)](#)
+
+The examples in this skill use neutral, general-purpose domains (e-commerce, facility booking, SaaS) — they illustrate the method, not any specific product or industry.
 
 ---
 
@@ -18,7 +16,7 @@
 Writing a high-quality Use Case spec is harder than it looks. BAs commonly struggle with:
 
 - **Wrong scope**: writing UCs that are too big (entire workflows) or too small (sub-functions like "Verify OTP")
-- **Vague actors**: using "User" instead of specific roles like Learner, Mentor, or HR Manager
+- **Vague actors**: using "User" instead of specific roles like Customer, Member, or Facility Manager
 - **Embedded logic**: stuffing if/else and loops into the Normal Course
 - **Missing failure modes**: only writing the happy path
 - **Confusing Preconditions with Business Rules**
@@ -40,20 +38,20 @@ This skill enforces the discipline by:
 - ✅ **3 identification techniques** for breaking down large features: goal-driven, event-driven, CRUD-driven
 - ✅ **20-point quality checklist** auto-run before handover
 - ✅ **Bilingual interaction** — chat in Vietnamese or English, produce the UC artifact in English
-- ✅ **2 complete EdTech UC examples** included as reference (Course Enrollment, Mentor Session Approval)
+- ✅ **2 complete UC examples** included as reference (Place an Order, Approve a Booking Request)
 
 ---
 
 ## Repository structure
 
 ```
-ba-zone-use-case-writer/
+use-case-writer/
 ├── SKILL.md                          # Main workflow (loaded into Claude's context)
 ├── references/                       # Reference docs (loaded on demand)
-│   ├── template-guide.md             # How to fill each of the 13 fields, with Digital School examples
+│   ├── template-guide.md             # How to fill each of the 13 fields, with worked examples
 │   ├── writing-style.md              # Active voice rules, numbering conventions, 10 anti-patterns
 │   ├── quality-checklist.md          # 20-point validation checklist with pass/fail examples
-│   └── examples-edtech.md            # 2 full EdTech UC examples (Course Enrollment, Mentor Approval)
+│   └── examples.md                   # 2 full UC examples (Place an Order, Approve a Booking Request)
 ├── assets/
 │   └── uc-template.md                # Copy-ready Markdown template
 ├── README.md                         # This file
@@ -72,7 +70,7 @@ The skill follows the **progressive disclosure** pattern: only `SKILL.md` is alw
 
 1. Download or clone this repository
 2. In [claude.ai](https://claude.ai), go to **Projects → Create new project**
-3. Upload the entire `ba-zone-use-case-writer/` folder to the project knowledge base
+3. Upload the entire `use-case-writer/` folder to the project knowledge base
 4. Start chatting — the skill activates automatically on relevant prompts
 
 ### Option 2: Use as a prompt template
@@ -83,7 +81,7 @@ Paste the contents of `SKILL.md` at the start of a chat and tell Claude:
 ### Option 3: Deploy to /mnt/skills/user/
 
 If your environment supports the skills mount:
-1. Copy the folder to `/mnt/skills/user/ba-zone-use-case-writer/`
+1. Copy the folder to `/mnt/skills/user/use-case-writer/`
 2. Claude will detect and trigger the skill automatically
 
 ---
@@ -109,14 +107,14 @@ If your environment supports the skills mount:
 ### Example interaction
 
 ```
-User: Viết UC cho tính năng đặt lịch mentor 1-on-1
+User: Viết UC cho tính năng đặt phòng họp
 
 Claude:
 [Step 1] Mode: A (write new from feature description).
 [Step 2] Xác nhận scope:
-  Primary actor: Learner (Digital School Premium subscriber)
-  Goal: Book a 1-on-1 mentor session
-  System boundary: BA Zone Platform
+  Primary actor: Member (workspace plan subscriber)
+  Goal: Book a meeting room
+  System boundary: Workspace platform
 
 Scope confirmed ✅. Confirm để tiến hành Step 3 (sinh UC theo từng nhóm)?
 
@@ -125,8 +123,8 @@ User: yes
 Claude:
 [Group 1: Identification + Actor + Description]
 
-| Use Case ID: | UC-MENTOR-01 |
-| Use Case Name: | Book 1-on-1 mentor session |
+| Use Case ID: | UC-ROOM-01 |
+| Use Case Name: | Book a meeting room |
 | ...
 
 Group 1 done. Confirm to proceed to preconditions, postconditions, priority, frequency?
@@ -149,7 +147,7 @@ Step 4: VALIDATE           →  run 20-point checklist before handover
 
 | Field | Purpose |
 |-------|---------|
-| Use Case ID | Unique identifier (e.g. UC-LEARN-01) |
+| Use Case ID | Unique identifier (e.g. UC-ORDER-01) |
 | Use Case Name | Action verb + Object |
 | History | Created By / Date, Last Updated By / Date |
 | Actor | Primary + Secondary actors (specific roles) |
@@ -187,7 +185,7 @@ See [`references/quality-checklist.md`](references/quality-checklist.md) for ful
 
 ## What this skill does NOT do
 
-- ❌ **Agile User Stories** — use `ba-zone-user-story-ac-writer` for that
+- ❌ **Agile User Stories** — use a dedicated user-story / acceptance-criteria skill for that
 - ❌ **Full PRD / URD / SRS documents** — UC is one section, not the whole doc
 - ❌ **UML Use Case Diagrams** — this skill produces text specs, not diagrams
 - ❌ **Wireframes or UI mockups** — UC describes interaction, not visual design
@@ -197,17 +195,17 @@ See [`references/quality-checklist.md`](references/quality-checklist.md) for ful
 
 ## Examples included
 
-Two complete, validated EdTech UCs ship with the skill in [`references/examples-edtech.md`](references/examples-edtech.md):
+Two complete, validated UCs ship with the skill in [`references/examples.md`](references/examples.md):
 
-1. **UC-LEARN-01: Enroll in a Digital School course**
-   - Learner-facing UC with payment integration and async LMS fallback
+1. **UC-ORDER-01: Place an order for a physical product**
+   - Customer-facing UC with payment integration and async inventory fallback
    - 9-step Normal Course, 2 Alternative Courses, 4 Exceptions
-   - Demonstrates: voucher payment AC, capacity race condition, async retry on LMS failure
+   - Demonstrates: gift card payment AC, out-of-stock race condition, async retry on inventory failure
 
-2. **UC-MENTOR-03: Approve learner 1-on-1 mentor session request**
-   - Mentor-facing admin UC with concurrency, quota enforcement, and calendar integration
+2. **UC-ROOM-03: Approve a meeting-room booking request**
+   - Staff-facing admin UC with concurrency, credit enforcement, and calendar integration
    - 10-step Normal Course, 2 Alternative Courses, 4 Exceptions
-   - Demonstrates: concurrency conflict, quota exhaustion at approval time, calendar service degraded-mode handling
+   - Demonstrates: concurrency conflict, credit exhaustion at approval time, calendar service degraded-mode handling
 
 ---
 
@@ -223,7 +221,7 @@ Two complete, validated EdTech UCs ship with the skill in [`references/examples-
 ## Contributing
 
 Contributions welcome! If you have:
-- Additional UC examples from your domain (insurance, healthcare, e-commerce, EdTech…)
+- Additional UC examples from your domain (insurance, healthcare, e-commerce, logistics…)
 - New anti-patterns you've encountered in the field
 - Improvements to the 20-point checklist
 - Translations or localization notes
@@ -235,15 +233,3 @@ Please open a Pull Request or Issue. When contributing UC examples, ensure they 
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
-
-**Attribution requirement**: Any redistribution of this repository, in whole or in part, must credit the original author: **Phúc NT / BA Zone / Digital School**. Removing or obscuring authorship information is not permitted under the terms of this license.
-
----
-
-## Author
-
-Developed by **Phúc NT** · [BA Zone](https://bazone.vn) · Digital School
-
-This is intellectual property of **BA Zone**. You are free to use and fork this repository under the MIT License, provided you **keep the author attribution** (Phúc NT / BA Zone) in all redistributed copies.
-
-*BA Zone · Digital School — Cộng đồng BA/PO Việt Nam*

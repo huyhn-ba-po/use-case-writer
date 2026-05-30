@@ -1,8 +1,6 @@
 # Template Guide — How to Fill Each Field
 
-Detailed guidance for filling each of the 13 fields, with pass/fail examples in the EdTech & Digital School domain.
-
-Compiled by **Phúc NT** · BA Zone · Digital School
+Detailed guidance for filling each of the 13 fields, with pass/fail examples in neutral, general-purpose domains (e-commerce, facility booking).
 
 ## Table of Contents
 1. [Use Case ID](#1-use-case-id)
@@ -31,17 +29,17 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 **Rules**:
 - Format: `UC-<module>-<sequence>` or `UC-X.Y` (hierarchical)
 - Use a consistent naming convention across the project
-- For related UC groups, use X.Y (e.g. UC-3.1, UC-3.2 belong to the "Enrollment" group)
-- Pad the sequence to 2-3 digits: `UC-LEARN-01`, `UC-MENTOR-003`
+- For related UC groups, use X.Y (e.g. UC-3.1, UC-3.2 belong to the "Order" group)
+- Pad the sequence to 2-3 digits: `UC-ORDER-01`, `UC-ROOM-003`
 
 **Good examples**:
-- `UC-LEARN-01` (Enrollment module, UC #1)
-- `UC-MENTOR-03` (Mentoring module, UC #3)
+- `UC-ORDER-01` (Order module, UC #1)
+- `UC-ROOM-03` (Room booking module, UC #3)
 - `UC-3.2` (hierarchical, 2nd sub-UC of group 3)
 
 **Bad examples**:
 - `UC1` (no scheme)
-- `UseCase_CourseEnrollment` (mixes name into ID — hard to maintain when name changes)
+- `UseCase_PlaceOrder` (mixes name into ID — hard to maintain when name changes)
 
 ---
 
@@ -58,18 +56,18 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 
 **Pattern**: `<Verb> <Direct Object> [<modifier>]`
 
-**Good examples** (Digital School / BA Zone):
-- ✅ "Enroll in Digital School course"
-- ✅ "Book 1-on-1 mentor session"
-- ✅ "Issue course completion certificate"
-- ✅ "Approve learner KYC application"
-- ✅ "Assign enterprise license to employee"
+**Good examples**:
+- ✅ "Place an order"
+- ✅ "Book a meeting room"
+- ✅ "Issue a refund receipt"
+- ✅ "Approve a booking request"
+- ✅ "Assign a license to a team member"
 
 **Bad examples → how to fix**:
-- ❌ "Enrollment" → ✅ "Enroll in course"
-- ❌ "Learner books session" (actor included) → ✅ "Book mentor session"
-- ❌ "Manage learning path" (vague verb) → split into "Create learning path", "Update learning path", "Archive learning path"
-- ❌ "Certificate is issued" (passive voice) → ✅ "Issue completion certificate"
+- ❌ "Order" → ✅ "Place an order"
+- ❌ "Customer books room" (actor included) → ✅ "Book a meeting room"
+- ❌ "Manage catalog" (vague verb) → split into "Create catalog item", "Update catalog item", "Archive catalog item"
+- ❌ "Receipt is issued" (passive voice) → ✅ "Issue a refund receipt"
 
 ---
 
@@ -78,7 +76,7 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 **Purpose**: Audit trail (Created By, Date Created, Last Updated By, Date Last Updated).
 
 **Rules**:
-- Created By: full name + role (e.g. "Phúc NT - BA Zone")
+- Created By: full name + role (e.g. "Jane Doe - BA Team")
 - Date Created: YYYY-MM-DD format
 - Last Updated By + Date Last Updated: update on every edit
 - If unknown, use the placeholder `<TBD>` instead of leaving blank
@@ -91,7 +89,7 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 
 **Actor types**:
 - **Primary actor**: Initiates the UC, benefits from the outcome
-- **Secondary actor**: Supporting system/person (payment gateway, LMS, calendar service)
+- **Secondary actor**: Supporting system/person (payment gateway, inventory service, calendar service)
 - **Off-stage stakeholder**: Has interest but doesn't interact directly (regulators, auditors) — usually NOT listed in the Actor field
 
 **Rules**:
@@ -99,15 +97,15 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 - A UC should have 1 primary actor (rarely 2+)
 - If there's a secondary actor, label it clearly
 
-**Good examples** (Digital School / BA Zone):
-- ✅ "Primary: Learner (Digital School Premium subscriber, email verified)"
-- ✅ "Primary: Mentor (BA Zone certified, active account)"
-- ✅ "Primary: HR Manager (Enterprise Partner with license admin rights)"
-- ✅ "Primary: BO Admin; Secondary: AML Service, Notification Service"
+**Good examples**:
+- ✅ "Primary: Customer (registered account, email verified)"
+- ✅ "Primary: Facility Manager (active manager account)"
+- ✅ "Primary: Account Admin (organization owner with billing rights)"
+- ✅ "Primary: Support Agent; Secondary: Fraud Check Service, Notification Service"
 
 **Bad examples**:
 - ❌ "User" (too generic)
-- ❌ "Student" (ambiguous — is it the same as Learner?)
+- ❌ "Customer/Member" (ambiguous — are they the same role?)
 - ❌ "System" (the system is the target of the UC, not an actor)
 
 ---
@@ -123,12 +121,12 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 
 **Pattern**: `[When/To] <trigger/reason>, <actor> <action> in order to <outcome>.`
 
-**Good example** (Digital School):
-> "When a learner completes all lessons and passes the final assessment of a Digital School course, the learner navigates to the Certificate section to download their completion certificate. The UC ends when a personalized certificate PDF is generated with a unique verification code, downloaded by the learner, and recorded in the Certificates table."
+**Good example**:
+> "When a customer wants a copy of a transaction record, the customer navigates to the order history and requests a receipt for a completed order. The UC ends when a receipt PDF is generated with a unique reference code, downloaded by the customer, and recorded in the Receipts table."
 
 **Bad examples**:
-> ❌ "This UC is about certificates." (too short, missing WHY and OUTCOME)
-> ❌ "The certificate module has these steps: request, generate, download…" (describes flow, not a description)
+> ❌ "This UC is about receipts." (too short, missing WHY and OUTCOME)
+> ❌ "The receipt module has these steps: request, generate, download…" (describes flow, not a description)
 
 ---
 
@@ -146,18 +144,18 @@ Compiled by **Phúc NT** · BA Zone · Digital School
   - Precondition: REQUIRED for the UC to run
   - Assumption: BELIEVED to be true but not verified
 
-**Good examples** (Digital School):
+**Good examples**:
 ```
-1. Learner has logged in to BA Zone with a verified email address
-2. Learner has completed 100% of the course lessons (progress = 100%)
-3. Learner has passed the final assessment with a score ≥ 70%
-4. Certificate generation service is available
+1. Customer has logged in with a verified email address
+2. The order status is 'Completed' (a receipt can only be issued for completed orders)
+3. The order belongs to the logged-in customer
+4. Receipt generation service is available
 ```
 
 **Bad examples**:
 - ❌ "System is operating" (too generic, not verifiable)
-- ❌ "Learner wants a certificate" (motivation, not a condition)
-- ❌ "Learner must have a valid payment method" (belongs in a payment UC, not a certificate UC)
+- ❌ "Customer wants a receipt" (motivation, not a condition)
+- ❌ "Customer must have a valid payment method" (belongs in a payment UC, not a receipt UC)
 
 ---
 
@@ -174,16 +172,16 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 - Number them
 
 **Important**: A postcondition is a **state**, not an **action**.
-- ✅ State: "Certificate record is saved with a unique verification code"
-- ❌ Action: "System saves the certificate record" (this is a step in the Normal Course)
+- ✅ State: "Receipt record is saved with a unique reference code"
+- ❌ Action: "System saves the receipt record" (this is a step in the Normal Course)
 
-**Good example** (Digital School):
+**Good example**:
 ```
-1. Certificate record is created in the Certificates table with a unique verification code (format: CERT-BAZONE-YYYY-NNNNN)
-2. Certificate PDF is generated and stored in cloud storage, accessible via a permanent URL
-3. Learner's profile displays the certificate badge for the completed course
-4. Certificate verification page is publicly accessible at verify.bazone.vn using the unique code
-5. Achievement notification is sent to the learner's email and in-app notification center
+1. Receipt record is created in the Receipts table with a unique reference code (format: RCPT-YYYY-NNNNN)
+2. Receipt PDF is generated and stored in cloud storage, accessible via a permanent URL
+3. Customer's order history displays a "Receipt available" badge for the order
+4. Receipt verification page is accessible at verify.example.com using the unique code
+5. A "Receipt ready" notification is sent to the customer's email and in-app notification center
 ```
 
 ---
@@ -200,9 +198,9 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 - Use the SAME scheme as the project's SRS / PRD
 - Justify (one sentence explaining why priority X)
 
-**Good examples** (Digital School):
-- "High — Core feature; directly tied to learner retention and completion rate metrics"
-- "Medium — Enhances enterprise partner experience; planned for phase 2"
+**Good examples**:
+- "High — Core feature; directly tied to conversion and retention metrics"
+- "Medium — Enhances the admin experience; planned for phase 2"
 
 ---
 
@@ -215,9 +213,9 @@ Compiled by **Phúc NT** · BA Zone · Digital School
 - Suitable time units: per second, per hour, per day, per month
 - If there are peak times, state them explicitly
 
-**Good examples** (Digital School):
-- "~500 enrollments/day; peak ~100/hour during campaign launches and new course releases"
-- "~15 session requests/day per mentor; system-wide ~300/day across 20 active mentors; peak Sunday evenings"
+**Good examples**:
+- "~500 orders/day; peak ~100/hour during campaigns and flash sales"
+- "~15 booking requests/day per manager; system-wide ~300/day across 20 locations; peak Monday mornings"
 
 **Bad examples**:
 - ❌ "Frequent"
@@ -253,22 +251,22 @@ Typical pattern: Actor → System → Actor → System…
 - Step 1: Trigger (the event that activates the UC)
 - Final step: Goal achieved (postcondition met)
 
-**Good example** (Digital School — book a mentor session):
+**Good example (book a meeting room)**:
 ```
-1. Learner navigates to the "My Mentors" section and selects a mentor profile.
-2. System displays the mentor's profile: bio, expertise, average rating, and available time slots for the next 14 days.
-3. Learner selects a preferred date and time slot.
-4. Learner enters a topic or question for the session (max 500 characters) and clicks "Send Request".
-5. System validates that the learner has at least 1 unused session quota in their current subscription.
-6. System creates a session request with status='Pending_Mentor_Review' and sends a notification to the mentor.
-7. System displays a confirmation screen: "Request sent! Your mentor will respond within 24 hours."
-8. System invokes UC-NOTI-03 to send a confirmation email to the learner.
+1. Member navigates to the "Rooms" section and selects a room.
+2. System displays the room's details: capacity, amenities, and available time slots for the next 14 days.
+3. Member selects a preferred date and time slot.
+4. Member enters the meeting purpose (max 500 characters) and clicks "Send Request".
+5. System validates that the member has at least 1 unused booking credit in their current plan.
+6. System creates a booking request with status='Pending_Manager_Review' and notifies the facility manager.
+7. System displays a confirmation screen: "Request sent! The facility manager will respond within 24 hours."
+8. System invokes UC-NOTI-03 to send a confirmation email to the member.
 ```
 
 **Bad examples → how to fix**:
-- ❌ "1. If the learner has a Premium subscription, they can select any mentor; otherwise they can only select from the free tier…" → Move the branching to an Alternative Course
+- ❌ "1. If the member has a Premium plan, they can book any room; otherwise only shared desks…" → Move the branching to an Alternative Course
 - ❌ "3. System validates. If invalid, show error. If valid, continue." → Validation-pass continues in flow; validation-fail goes into an Exception
-- ❌ "5. System calls POST /api/v1/sessions with body {learner_id, mentor_id, slot_id}" → Too technical. Say: "System creates the session request in the booking system"
+- ❌ "5. System calls POST /api/v1/bookings with body {member_id, room_id, slot_id}" → Too technical. Say: "System creates the booking request in the booking system"
 
 ---
 
@@ -281,14 +279,14 @@ Typical pattern: Actor → System → Actor → System…
 - Each AC starts with: "At step Y of the Normal Course, if [condition], execute the alternative: …"
 - After the AC, state explicitly which step of the Normal Course to continue from
 
-**Good example** (Digital School):
+**Good example**:
 ```
-UC-LEARN-01.AC.1: Enroll using an enterprise voucher
-At step 5 of the Normal Course, if the learner selects "Enterprise Voucher" as the payment method:
-5a. System displays a voucher code input field.
-5b. Learner enters the code and clicks "Apply".
-5c. System validates the voucher (expiry, applicability, remaining uses).
-5d. System updates the total amount to 0 VND → continue from step 7 of the Normal Course (no payment gateway call).
+UC-ORDER-01.AC.1: Pay using a gift card
+At step 5 of the Normal Course, if the customer selects "Gift Card" as the payment method:
+5a. System displays a gift card code input field.
+5b. Customer enters the code and clicks "Apply".
+5c. System validates the gift card (expiry, applicability, remaining balance).
+5d. System updates the total amount to 0 → continue from step 7 of the Normal Course (no payment gateway call).
 ```
 
 ---
@@ -306,19 +304,19 @@ At step 5 of the Normal Course, if the learner selects "Enterprise Voucher" as t
 
 **Common failure modes to check** (don't forget):
 - Validation errors (wrong format, missing field)
-- Business rule violations (quota exceeded, course at capacity)
-- External service failures (payment gateway timeout, LMS unavailable)
+- Business rule violations (credit exceeded, item out of stock)
+- External service failures (payment gateway timeout, inventory service unavailable)
 - Network/connectivity issues
 - Permission denied / authorization failure
-- Concurrency conflict (slot booked by another learner at the same time)
-- Session timeout (mentor idle too long on the detail view)
+- Concurrency conflict (last unit bought by another customer at the same time)
+- Session timeout (manager idle too long on the detail view)
 
-**Good example** (Digital School):
+**Good example**:
 ```
-UC-LEARN-01.EX.2: Course reaches full capacity between page load and enrollment
-Trigger: At step 7, LMS returns CAPACITY_EXCEEDED because another learner filled the last slot milliseconds earlier.
-Response: System displays "Sorry, this course just reached full capacity. Join the waitlist to be notified when a slot opens."
-Final state: Payment is refunded automatically within 1 business day. No enrollment record is created. Learner is offered the waitlist option.
+UC-ORDER-01.EX.2: Item sells out between page load and checkout
+Trigger: At step 7, the Inventory Service returns OUT_OF_STOCK because another customer bought the last unit milliseconds earlier.
+Response: System displays "Sorry, this item just sold out. Add it to your wishlist to be notified when it is back."
+Final state: Payment is refunded automatically within 1 business day. No order record is created. Customer is offered the back-in-stock waitlist.
 ```
 
 ---
@@ -332,10 +330,10 @@ Final state: Payment is refunded automatically within 1 business day. No enrollm
 - The sub-UC must exist (have its own spec)
 - DO NOT use Includes just to group minor steps — only for logic reused in other UCs
 
-**Good example** (Digital School):
+**Good example**:
 ```
 - UC-PAY-01: Process payment (called at step 6 of the Normal Course)
-- UC-NOTI-01: Send enrollment notification (called at step 9)
+- UC-NOTI-01: Send order notification (called at step 9)
 ```
 
 ---
@@ -349,16 +347,16 @@ Final state: Payment is refunded automatically within 1 business day. No enrollm
 - **Security**: Authentication, encryption, data privacy
 - **Usability**: Accessibility, mobile-first requirements
 - **Reliability**: Uptime, async fallback strategy
-- **Compliance**: Regulatory requirements (VAT invoicing, data retention)
+- **Compliance**: Regulatory requirements (tax invoicing, data retention)
 
 **Rule**: DO NOT duplicate functional requirements — only list non-functional.
 
-**Good example** (Digital School):
+**Good example**:
 ```
-- Performance: Course catalog page loads ≤ 2s under 5,000 concurrent learners
-- Security: Payment card data never stored on BA Zone servers; all card processing via PCI-DSS certified gateway
-- Reliability: If LMS is unavailable during enrollment, payment must not be rolled back — retry asynchronously up to 30 min
-- Compliance: Issue VAT invoice for all transactions ≥ 200,000 VND (Vietnamese tax law)
+- Performance: Product catalog page loads ≤ 2s under 5,000 concurrent users
+- Security: Payment card data never stored on store servers; all card processing via a PCI-DSS certified gateway
+- Reliability: If the inventory service is unavailable during checkout, payment must not be rolled back — retry asynchronously up to 30 min
+- Compliance: Issue a tax invoice for transactions above the local statutory threshold, per applicable tax regulations
 ```
 
 ---
@@ -371,12 +369,12 @@ Final state: Payment is refunded automatically within 1 business day. No enrollm
 - Precondition: MUST BE TRUE, system can verify
 - Assumption: BELIEVED TO BE TRUE, not required to verify
 
-**Good example** (Digital School):
+**Good example**:
 ```
-1. Learner's email address is verified and active — welcome emails will not bounce
+1. Customer's email address is verified and active — confirmation emails will not bounce
 2. Payment Gateway SLA is ≥ 99.5% uptime during business hours
-3. Enterprise vouchers are pre-loaded by BA Zone's ops team before distribution to partners
-4. LMS access provisioning completes synchronously in < 3s under normal load
+3. Gift cards are pre-loaded by the operations team before distribution
+4. Stock reservation completes synchronously in < 3s under normal load
 ```
 
 ---
@@ -390,13 +388,9 @@ Final state: Payment is refunded automatically within 1 business day. No enrollm
 [TBD-N] | Owner | Due Date | Resolution
 ```
 
-**Good example** (Digital School):
+**Good example**:
 ```
-- [TBD-1] Should learners be able to gift a course enrollment to another BA Zone user? | Owner: Product Team | Due: 2026-06-01 | Resolution: TBD — deferred to phase 2
-- [TBD-2] What is the refund policy if a learner requests a refund within 7 days? | Owner: Phúc NT - BA Zone | Due: 2026-05-25 | Resolution: TBD
-- [NOTE] Welcome email template must align with current Digital School brand guidelines — coordinate with Marketing team
+- [TBD-1] Should customers be able to gift an order to another account? | Owner: Product Team | Due: YYYY-MM-DD | Resolution: TBD — deferred to phase 2
+- [TBD-2] What is the refund policy if a customer requests a refund within 7 days? | Owner: <TBD> | Due: YYYY-MM-DD | Resolution: TBD
+- [NOTE] Confirmation email template must align with current brand guidelines — coordinate with Marketing team
 ```
-
----
-*Compiled by **Phúc NT** · BA Zone · Digital School*  
-*Please credit the source when sharing or adapting this guide.*

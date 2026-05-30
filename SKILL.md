@@ -1,16 +1,13 @@
 ---
 name: use-case-writer
 description: Generate Use Case specifications in English Markdown following the IT BA standard 13-field template (Karl Wiegers / IIBA). Use whenever a BA needs to scope, analyze, document, refine, or review a Use Case. Triggers include "write a use case", "draft UC", "use case specification", "analyze UC scope", "split feature into use cases", "review my UC", "write normal course / alternative course / exceptions", "define actors", and Vietnamese equivalents like "viết use case", "viết UC", "đặc tả use case", "phân tích use case", "review UC". Also trigger when user pastes a feature/BRD/PRD and asks to turn it into UCs. Skill enforces Cockburn's guidelines (coffee-break test, goal levels) and runs a 20-point quality checklist. Output is English Markdown with 13 fields (Actor, Description, Pre/Postconditions, Priority, Frequency, Normal/Alternative Courses, Exceptions, Includes, Special Req, Assumptions, Notes). DO NOT use for Agile User Stories, PRD/URD/SRS, or UML diagrams.
-author: Phúc NT @ BA Zone
-source: https://github.com/ba-zone
 ---
 
 # Use Case Writer — Skill for IT Business Analysts
-> by **Phúc NT** · BA Zone · Digital School
 
 This skill helps IT BAs **scope, analyze, and document Use Cases** in English Markdown following the standard 13-field template (Karl Wiegers / IIBA style), with best practices from Alistair Cockburn's "Writing Effective Use Cases" and the IIBA BABOK Guide.
 
-Developed by **Phúc NT** as part of the **Digital School** training program by **BA Zone** — Vietnam's Business Analyst & Product Owner community.
+The examples in this skill use neutral, general-purpose domains (e-commerce, facility booking, SaaS) — they illustrate the method, not any specific product or industry.
 
 ## When to use this skill
 
@@ -24,7 +21,7 @@ Trigger this skill whenever the user needs to:
 ## Output rules (non-negotiable)
 
 1. **Language**: English. Even if the user types in Vietnamese, generate the UC document in English. Use Vietnamese only when chatting with the user about the process.
-2. **Format**: Markdown (`.md`). Use the 2-column table layout that mirrors the original template.
+2. **Format**: Markdown (`.md`). Use the 2-column table layout that mirrors the template.
 3. **Mode**: Sequential — generate section by section, **stop and wait for the user to confirm** before moving on. Never dump a full UC in one shot unless the user explicitly says "give me the full UC at once".
 
 ---
@@ -70,8 +67,8 @@ This is the **most important and most error-prone** part of UC writing. Read car
 After completing the UC, can the actor take a coffee break without feeling the task is unfinished? If NO → the UC is too low-level (sub-function), merge it. If YES → scope is right (user-goal level).
 
 **Rule 2 - Goal Level (Cockburn's 3 levels)**
-- **Summary level (cloud)**: UC spans multiple sessions. E.g. "Manage course enrollment lifecycle" → too high, DO NOT write as a single UC.
-- **User-goal level (sea level)** ✅: 1 actor, 1 session, achieves 1 business goal. E.g. "Enroll in a Digital School course" → right level for a UC.
+- **Summary level (cloud)**: UC spans multiple sessions. E.g. "Manage the order fulfillment lifecycle" → too high, DO NOT write as a single UC.
+- **User-goal level (sea level)** ✅: 1 actor, 1 session, achieves 1 business goal. E.g. "Place an order in the online store" → right level for a UC.
 - **Sub-function level (fish)**: A small step inside another UC. E.g. "Verify OTP" → too low, treat as Includes inside another UC.
 
 **Rule 3 - One Actor, One Goal, One Session**
@@ -96,7 +93,7 @@ List all goals for each actor → each goal = 1 candidate UC.
 Each event produces a system response → candidate UC.
 
 **Technique 3: CRUD-driven (data-centric)**
-For each business entity (Learner, Course, Enrollment, Certificate…), check whether the system needs Create / Read / Update / Delete. Each = 1 candidate UC (you can merge R-U-D for the same entity if logic is similar).
+For each business entity (Customer, Product, Order, Booking…), check whether the system needs Create / Read / Update / Delete. Each = 1 candidate UC (you can merge R-U-D for the same entity if logic is similar).
 
 ### 2.3. Output of Step 2
 
@@ -106,9 +103,9 @@ For each business entity (Learner, Course, Enrollment, Certificate…), check wh
 **Mode B**: A UC List table:
 ```
 | UC ID | UC Name (verb + noun)              | Primary Actor    | Goal | Priority |
-| UC-01 | Enroll in Digital School course    | Learner          | ...  | High     |
-| UC-02 | Book 1-on-1 mentor session         | Learner          | ...  | High     |
-| UC-03 | Approve learner KYC application    | BO Approver      | ...  | Medium   |
+| UC-01 | Place an order                     | Customer         | ...  | High     |
+| UC-02 | Book a meeting room                | Member           | ...  | High     |
+| UC-03 | Approve a booking request          | Facility Manager | ...  | Medium   |
 ```
 Then ask: "Which UC do you want me to write in detail first?"
 
@@ -176,24 +173,24 @@ Generate **in this exact order**, pause and ask confirmation after each group:
 
 ### 3.3. CRITICAL field-filling rules (the most common mistakes)
 
-**Use Case ID**: Format `UC-<module>-<seq>`, e.g. `UC-LEARN-01`. Hierarchical X.Y if you have UC groups.
+**Use Case ID**: Format `UC-<module>-<seq>`, e.g. `UC-ORDER-01`. Hierarchical X.Y if you have UC groups.
 
 **Use Case Name**: MUST be "**Verb + Object**" (active voice).
-- ✅ "Enroll in Digital School course", "Book mentor session", "Issue course completion certificate"
-- ❌ "Enrollment" (no verb), "Learner enrolls" (actor included), "Manage courses" (vague verb)
+- ✅ "Place an order", "Book a meeting room", "Issue a refund receipt"
+- ❌ "Order" (no verb), "Customer places order" (actor included), "Manage orders" (vague verb)
 
 **Actor**: Distinguish:
 - *Primary actor*: initiates the UC, benefits from the outcome
-- *Secondary actor*: supporting system/person (payment gateway, OTP service, LMS)
-Never write "User" — be specific (Learner, Mentor, BO Admin, HR Manager, Enterprise Partner…).
+- *Secondary actor*: supporting system/person (payment gateway, OTP service, inventory service)
+Never write "User" — be specific (Customer, Member, Facility Manager, Account Admin, Support Agent…).
 
 **Preconditions**: Conditions that **MUST be true** before the UC starts. Distinguish from business rules!
-- ✅ "Learner has logged in and has an active Digital School subscription"
-- ❌ "Learner is motivated to study" (motivation — not verifiable)
+- ✅ "Customer has logged in and has a verified email address"
+- ❌ "Customer is motivated to buy" (motivation — not verifiable)
 
 **Postconditions**: System state **AFTER** successful UC completion. Must be verifiable.
-- ✅ "Enrollment record saved with status='Active'; learner gains access to all course materials"
-- ❌ "Learner feels satisfied" (not verifiable)
+- ✅ "Order record saved with status='Confirmed'; stock reserved for each item"
+- ❌ "Customer feels satisfied" (not verifiable)
 
 **Normal Course of Events** (most important):
 - Numbered list, one action per step
@@ -201,17 +198,17 @@ Never write "User" — be specific (Learner, Mentor, BO Admin, HR Manager, Enter
 - Each step starts with a clear subject + active verb
 - **NO embedded if/else, loops, or exceptions** — those go in Alternative/Exception sections
 - Storytelling style: from trigger to goal achieved
-- ✅ "1. Learner selects the course on the Digital School catalog.  2. System displays course details and enrollment options.  3. Learner clicks 'Enroll Now'."
-- ❌ "1. If learner has voucher, enter code; otherwise proceed to payment…" (branching embedded)
+- ✅ "1. Customer selects the product in the online store.  2. System displays product details and an Add to Cart button.  3. Customer clicks 'Checkout'."
+- ❌ "1. If customer has a gift card, enter code; otherwise proceed to payment…" (branching embedded)
 
-**Alternative Courses**: Different paths that **still lead to success**. E.g. paying with enterprise voucher instead of personal wallet. Format `UC-XX.AC.N` + "At step Y of Normal Course, if [condition], execute the alternative: …"
+**Alternative Courses**: Different paths that **still lead to success**. E.g. paying with a gift card instead of a card. Format `UC-XX.AC.N` + "At step Y of Normal Course, if [condition], execute the alternative: …"
 
 **Exceptions**: Cases where **the goal fails** (errors, validation fails, timeouts). Format `UC-XX.EX.N`. Each exception needs: trigger condition + system response + final state.
 
-**Includes**: List of sub-UCs "called" by this UC (common functionality). E.g. UC "Enroll in course" includes UC "Process payment".
+**Includes**: List of sub-UCs "called" by this UC (common functionality). E.g. UC "Place an order" includes UC "Process payment".
 
 **Special Requirements**: Non-functional requirements specific to this UC:
-- Performance: "Course catalog page loads ≤ 2s for 5,000 concurrent learners"
+- Performance: "Product catalog page loads ≤ 2s for 5,000 concurrent users"
 - Security: "Payment data must be encrypted in transit (TLS 1.3)"
 - Usability, Reliability, Compliance…
 
@@ -266,18 +263,18 @@ Read `references/quality-checklist.md` for the full checklist with examples. The
 ## Output format details
 
 - Always produce English Markdown
-- Use the 2-column table layout that matches the original template
+- Use the 2-column table layout that matches the template
 - Save final output as a `.md` file if the user wants a downloadable file; otherwise show inline in chat
-- File naming convention: `<UC-ID>_<UC-Name-kebab>.md`, e.g. `UC-LEARN-01_enroll-digital-school-course.md`
+- File naming convention: `<UC-ID>_<UC-Name-kebab>.md`, e.g. `UC-ORDER-01_place-an-order.md`
 
 ---
 
 ## References
 
-- `references/template-guide.md` - Detailed guidance for each field (with EdTech & Digital School examples)
+- `references/template-guide.md` - Detailed guidance for each field (with worked examples)
 - `references/writing-style.md` - Writing conventions (active voice, numbering, anti-patterns)
 - `references/quality-checklist.md` - 20-point checklist with pass/fail examples
-- `references/examples-edtech.md` - 2 complete EdTech UC examples (Course Enrollment, Mentor Session Approval)
+- `references/examples.md` - 2 complete UC examples (Place an Order, Approve a Booking Request)
 - `assets/uc-template.md` - Copy-ready Markdown template
 
 ---
@@ -288,10 +285,6 @@ Read `references/quality-checklist.md` for the full checklist with examples. The
 2. **UC = User Story**: A UC describes detailed interactions; a US is a one-liner "As a… I want… So that…"
 3. **UC = Business Process**: A BP covers an entire business process (many people, many systems); a UC covers 1 actor + 1 system
 4. **Vague verbs in UC Name**: "Manage", "Handle", "Process" — too generic. Use specific action verbs
-5. **Mixing concerns**: Cramming enrollment, payment, notification into one giant UC → split using Includes
+5. **Mixing concerns**: Cramming order, payment, notification into one giant UC → split using Includes
 6. **Forgetting exceptions**: Writing only the happy path with no failure modes → insufficient for dev/QA
 7. **Vague preconditions**: "System is ready" → meaningless. Must be verifiable
-
----
-*Skill developed by **Phúc NT** · BA Zone · Digital School*  
-*Please keep attribution intact when sharing or forking this repo.*

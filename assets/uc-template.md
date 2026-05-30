@@ -2,8 +2,6 @@
 
 Copy the template below and replace the `<...>` placeholders with actual content.
 
-> Template by **Phúc NT** · BA Zone · Digital School
-
 ---
 
 ## UC-XX-YY: \<Use Case Name\>
@@ -14,7 +12,7 @@ Copy the template below and replace the `<...>` placeholders with actual content
 | **Created By:** | \<Name - Role\> | **Last Updated By:** | \<Name - Role\> |
 | **Date Created:** | YYYY-MM-DD | **Date Last Updated:** | YYYY-MM-DD |
 
-| **Actor:** | **Primary:** \<specific role, e.g. Learner / Mentor / HR Manager\>. **Secondary:** \<supporting actors, e.g. Payment Gateway, LMS, Notification Service\>. |
+| **Actor:** | **Primary:** \<specific role, e.g. Customer / Member / Facility Manager\>. **Secondary:** \<supporting actors, e.g. Payment Gateway, Inventory Service, Notification Service\>. |
 | ---: | :--- |
 | **Description:** | \<2-3 sentences: WHY + WHAT + OUTCOME\> |
 | **Preconditions:** | 1. \<condition 1, verifiable\><br>2. \<condition 2\><br>3. \<...\> |
@@ -28,7 +26,3 @@ Copy the template below and replace the `<...>` placeholders with actual content
 | **Special Requirements:** | **Performance**: \<...\><br>**Security**: \<...\><br>**Reliability**: \<...\><br>**Compliance**: \<...\> |
 | **Assumptions:** | 1. \<assumption 1\><br>2. \<assumption 2\> |
 | **Notes and Issues:** | [TBD-1] \<question\> \| Owner: \<...\> \| Due: \<...\> \| Resolution: \<...\> |
-
----
-*Template by **Phúc NT** · BA Zone · Digital School*  
-*Please keep attribution intact when distributing this template.*
